@@ -1,0 +1,1295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ECommerceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ClientId" Type="Guid" Nullable="false" />
+    <Property Name="Street" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Number" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Neighborhood" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ZIP" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="References" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Address_Client" FromRole="Address" ToRole="Client" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Address" FromRole="Address" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Banner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ImageId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Image" Relationship="Self.FK_Banner_Image" FromRole="Banner" ToRole="Image" />
+  </EntityType>
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="OrderDetail" Relationship="Self.FK_OrderDetail_Brand" FromRole="Brand" ToRole="OrderDetail" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_Brand" FromRole="Brand" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Bundle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ClasificationId" Type="Guid" Nullable="false" />
+    <Property Name="ImageId" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Clasification" Relationship="Self.FK_Bundle_Clasification" FromRole="Bundle" ToRole="Clasification" />
+    <NavigationProperty Name="Image" Relationship="Self.FK_Bundle_Image" FromRole="Bundle" ToRole="Image" />
+    <NavigationProperty Name="ProductToBundle" Relationship="Self.FK_ProducToBundle_Bundle" FromRole="Bundle" ToRole="ProductToBundle" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Level" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ParentCategoryId" Type="Guid" />
+    <NavigationProperty Name="Category1" Relationship="Self.FK_Category_Category" FromRole="Category" ToRole="Category1" />
+    <NavigationProperty Name="Category2" Relationship="Self.FK_Category_Category" FromRole="Category1" ToRole="Category" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="StateId" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="State" Relationship="Self.FK_City_State" FromRole="City" ToRole="State" />
+  </EntityType>
+  <EntityType Name="Clasification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Bundle" Relationship="Self.FK_Bundle_Clasification" FromRole="Clasification" ToRole="Bundle" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ClientTypeId" Type="Guid" Nullable="false" />
+    <Property Name="ClusterId" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastSecondName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeeNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Address" Relationship="Self.FK_Address_Client" FromRole="Client" ToRole="Address" />
+    <NavigationProperty Name="ClientType" Relationship="Self.FK_Client_ClientType" FromRole="Client" ToRole="ClientType" />
+    <NavigationProperty Name="Cluster" Relationship="Self.FK_Client_Cluster" FromRole="Client" ToRole="Cluster" />
+    <NavigationProperty Name="Comment" Relationship="Self.FK_Comment_Client" FromRole="Client" ToRole="Comment" />
+    <NavigationProperty Name="Guest" Relationship="Self.FK_Guest_ChildClient" FromRole="Client" ToRole="Guest" />
+    <NavigationProperty Name="Guest1" Relationship="Self.FK_Guest_ParentClient" FromRole="Client" ToRole="Guest" />
+    <NavigationProperty Name="InvoiceInformation" Relationship="Self.FK_InvoiceInformation_Client" FromRole="Client" ToRole="InvoiceInformation" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Client" FromRole="Client" ToRole="Order" />
+    <NavigationProperty Name="Point" Relationship="Self.FK_Point_Client" FromRole="Client" ToRole="Point" />
+  </EntityType>
+  <EntityType Name="ClientType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Active" Type="Int32" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Client_ClientType" FromRole="ClientType" ToRole="Client" />
+    <NavigationProperty Name="Cluster" Relationship="Self.FK_Cluster_ClientType" FromRole="ClientType" ToRole="Cluster" />
+  </EntityType>
+  <EntityType Name="Cluster">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ClientTypeId" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RFC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PriceList1Id" Type="Guid" />
+    <Property Name="PriceList2Id" Type="Guid" />
+    <Property Name="PriceList3Id" Type="Guid" />
+    <Property Name="PriceList4Id" Type="Guid" />
+    <Property Name="InvitationId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Client_Cluster" FromRole="Cluster" ToRole="Client" />
+    <NavigationProperty Name="ClientType" Relationship="Self.FK_Cluster_ClientType" FromRole="Cluster" ToRole="ClientType" />
+    <NavigationProperty Name="PriceList" Relationship="Self.FK_Cluster_PriceList1" FromRole="Cluster" ToRole="PriceList" />
+    <NavigationProperty Name="PriceList1" Relationship="Self.FK_Cluster_PriceList2" FromRole="Cluster" ToRole="PriceList" />
+    <NavigationProperty Name="PriceList2" Relationship="Self.FK_Cluster_PriceList3" FromRole="Cluster" ToRole="PriceList" />
+    <NavigationProperty Name="PriceList3" Relationship="Self.FK_Cluster_PriceList4" FromRole="Cluster" ToRole="PriceList" />
+    <NavigationProperty Name="Comment" Relationship="Self.FK_Comment_Cluster" FromRole="Cluster" ToRole="Comment" />
+    <NavigationProperty Name="PriceListToCluster" Relationship="Self.FK_PriceListToCluster_Cluster" FromRole="Cluster" ToRole="PriceListToCluster" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ClientId" Type="Guid" Nullable="false" />
+    <Property Name="ClusterId" Type="Guid" Nullable="false" />
+    <Property Name="ProductId" Type="Guid" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Rate" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Comment_Client" FromRole="Comment" ToRole="Client" />
+    <NavigationProperty Name="Cluster" Relationship="Self.FK_Comment_Cluster" FromRole="Comment" ToRole="Cluster" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Comment_Product" FromRole="Comment" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Feature">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="FeatureTypeId" Type="Guid" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="URL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="FeatureType" Relationship="Self.FK_Feature_FeatureType" FromRole="Feature" ToRole="FeatureType" />
+    <NavigationProperty Name="FeatureToProduct" Relationship="Self.FK_FeatureToProduct_Feature" FromRole="Feature" ToRole="FeatureToProduct" />
+  </EntityType>
+  <EntityType Name="FeatureToProduct">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ProductId" Type="Guid" Nullable="false" />
+    <Property Name="FeatureId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Feature" Relationship="Self.FK_FeatureToProduct_Feature" FromRole="FeatureToProduct" ToRole="Feature" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_FeatureToProduct_Product" FromRole="FeatureToProduct" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="FeatureType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Feature" Relationship="Self.FK_Feature_FeatureType" FromRole="FeatureType" ToRole="Feature" />
+  </EntityType>
+  <EntityType Name="Guest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ParentClientId" Type="Guid" Nullable="false" />
+    <Property Name="ChildClientId" Type="Guid" Nullable="false" />
+    <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Guest_ChildClient" FromRole="Guest" ToRole="Client" />
+    <NavigationProperty Name="Client1" Relationship="Self.FK_Guest_ParentClient" FromRole="Guest" ToRole="Client" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ImageTypeId" Type="Guid" />
+    <Property Name="ProductId" Type="Guid" />
+    <Property Name="URL" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Base64" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Banner" Relationship="Self.FK_Banner_Image" FromRole="Image" ToRole="Banner" />
+    <NavigationProperty Name="Bundle" Relationship="Self.FK_Bundle_Image" FromRole="Image" ToRole="Bundle" />
+    <NavigationProperty Name="ImageType" Relationship="Self.FK_Image_ImageType" FromRole="Image" ToRole="ImageType" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Image_Product" FromRole="Image" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="ImageType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Image" Relationship="Self.FK_Image_ImageType" FromRole="ImageType" ToRole="Image" />
+  </EntityType>
+  <EntityType Name="Inventory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="LocationId" Type="Guid" Nullable="false" />
+    <Property Name="ProductStatusId" Type="Guid" Nullable="false" />
+    <Property Name="MinimumInventoryLevel" Type="Int32" />
+    <Property Name="OnHandInventoryLevel" Type="Int32" />
+    <Property Name="AvailableInventoryLevel" Type="Int32" />
+    <Property Name="OnReserveInventoryLevel" Type="Int32" />
+    <NavigationProperty Name="Location" Relationship="Self.FK_Inventory_Location" FromRole="Inventory" ToRole="Location" />
+    <NavigationProperty Name="ProductStatus" Relationship="Self.FK_Inventory_ProductStatus" FromRole="Inventory" ToRole="ProductStatus" />
+  </EntityType>
+  <EntityType Name="InvoiceInformation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ClientId" Type="Guid" Nullable="false" />
+    <Property Name="PersonalEntity" Type="Int32" Nullable="false" />
+    <Property Name="Street" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Number" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Neighborhood" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ZIP" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="RFC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_InvoiceInformation_Client" FromRole="InvoiceInformation" ToRole="Client" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_InvoiceInformation" FromRole="InvoiceInformation" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="WarehouseId" Type="Guid" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Inventory" Relationship="Self.FK_Inventory_Location" FromRole="Location" ToRole="Inventory" />
+    <NavigationProperty Name="Warehouse" Relationship="Self.FK_Location_Warehouse" FromRole="Location" ToRole="Warehouse" />
+  </EntityType>
+  <EntityType Name="Neighborhood">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ZIPId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="ZIP" Relationship="Self.FK_Neighborhood_ZIP" FromRole="Neighborhood" ToRole="ZIP" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ClientId" Type="Guid" Nullable="false" />
+    <Property Name="AddressId" Type="Guid" Nullable="false" />
+    <Property Name="InvoiceInformationId" Type="Guid" />
+    <Property Name="PaymentId" Type="Guid" Nullable="false" />
+    <Property Name="DisplayNumber" Type="Int64" />
+    <NavigationProperty Name="Address" Relationship="Self.FK_Order_Address" FromRole="Order" ToRole="Address" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Order_Client" FromRole="Order" ToRole="Client" />
+    <NavigationProperty Name="InvoiceInformation" Relationship="Self.FK_Order_InvoiceInformation" FromRole="Order" ToRole="InvoiceInformation" />
+    <NavigationProperty Name="Payment" Relationship="Self.FK_Order_Payment" FromRole="Order" ToRole="Payment" />
+    <NavigationProperty Name="OrderDetail" Relationship="Self.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
+    <NavigationProperty Name="Point" Relationship="Self.FK_Point_Order" FromRole="Order" ToRole="Point" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="OrderId" Type="Guid" Nullable="false" />
+    <Property Name="ProductId" Type="Guid" Nullable="false" />
+    <Property Name="BrandId" Type="Guid" Nullable="false" />
+    <Property Name="PriceListId" Type="Guid" Nullable="false" />
+    <Property Name="Quantity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UnitCost" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Freight" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Subtotal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EstimatedDeliveryDate" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Warehouse" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StorageLocation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Brand" Relationship="Self.FK_OrderDetail_Brand" FromRole="OrderDetail" ToRole="Brand" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetail_Order" FromRole="OrderDetail" ToRole="Order" />
+    <NavigationProperty Name="PriceList" Relationship="Self.FK_OrderDetail_PriceList" FromRole="OrderDetail" ToRole="PriceList" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_OrderDetail_Product" FromRole="OrderDetail" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="PaymentTypeId" Type="Guid" Nullable="false" />
+    <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Detail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Payment" FromRole="Payment" ToRole="Order" />
+    <NavigationProperty Name="PaymentType" Relationship="Self.FK_Payment_PaymentType" FromRole="Payment" ToRole="PaymentType" />
+  </EntityType>
+  <EntityType Name="PaymentType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Payment" Relationship="Self.FK_Payment_PaymentType" FromRole="PaymentType" ToRole="Payment" />
+  </EntityType>
+  <EntityType Name="Point">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ClientId" Type="Guid" Nullable="false" />
+    <Property Name="PointTypeId" Type="Guid" Nullable="false" />
+    <Property Name="OrderId" Type="Guid" Nullable="false" />
+    <Property Name="Amount" Type="Int64" Nullable="false" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Point_Client" FromRole="Point" ToRole="Client" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Point_Order" FromRole="Point" ToRole="Order" />
+    <NavigationProperty Name="PointType" Relationship="Self.FK_Point_PointType" FromRole="Point" ToRole="PointType" />
+  </EntityType>
+  <EntityType Name="PointType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Point" Relationship="Self.FK_Point_PointType" FromRole="PointType" ToRole="Point" />
+  </EntityType>
+  <EntityType Name="PriceList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="PriceListValue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Cluster" Relationship="Self.FK_Cluster_PriceList1" FromRole="PriceList" ToRole="Cluster" />
+    <NavigationProperty Name="Cluster1" Relationship="Self.FK_Cluster_PriceList2" FromRole="PriceList" ToRole="Cluster" />
+    <NavigationProperty Name="Cluster2" Relationship="Self.FK_Cluster_PriceList3" FromRole="PriceList" ToRole="Cluster" />
+    <NavigationProperty Name="Cluster3" Relationship="Self.FK_Cluster_PriceList4" FromRole="PriceList" ToRole="Cluster" />
+    <NavigationProperty Name="OrderDetail" Relationship="Self.FK_OrderDetail_PriceList" FromRole="PriceList" ToRole="OrderDetail" />
+    <NavigationProperty Name="PriceListToCluster" Relationship="Self.FK_PriceListToCluster_PriceList" FromRole="PriceList" ToRole="PriceListToCluster" />
+    <NavigationProperty Name="ProductToBundle" Relationship="Self.FK_ProductToBundle_PriceList" FromRole="PriceList" ToRole="ProductToBundle" />
+  </EntityType>
+  <EntityType Name="PriceListToCluster">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ClusterId" Type="Guid" Nullable="false" />
+    <Property Name="PriceListId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Cluster" Relationship="Self.FK_PriceListToCluster_Cluster" FromRole="PriceListToCluster" ToRole="Cluster" />
+    <NavigationProperty Name="PriceList" Relationship="Self.FK_PriceListToCluster_PriceList" FromRole="PriceListToCluster" ToRole="PriceList" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="CategoryId" Type="Guid" Nullable="false" />
+    <Property Name="BrandId" Type="Guid" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="SKU" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Color" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="LongDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="FacebookURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="YouTubeID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Brand" Relationship="Self.FK_Product_Brand" FromRole="Product" ToRole="Brand" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
+    <NavigationProperty Name="Comment" Relationship="Self.FK_Comment_Product" FromRole="Product" ToRole="Comment" />
+    <NavigationProperty Name="FeatureToProduct" Relationship="Self.FK_FeatureToProduct_Product" FromRole="Product" ToRole="FeatureToProduct" />
+    <NavigationProperty Name="Image" Relationship="Self.FK_Image_Product" FromRole="Product" ToRole="Image" />
+    <NavigationProperty Name="OrderDetail" Relationship="Self.FK_OrderDetail_Product" FromRole="Product" ToRole="OrderDetail" />
+    <NavigationProperty Name="ProductToBundle" Relationship="Self.FK_ProductToBundle_Product" FromRole="Product" ToRole="ProductToBundle" />
+    <NavigationProperty Name="RelatedProduct" Relationship="Self.FK_RelatedProductChild_Product" FromRole="Product" ToRole="RelatedProduct" />
+    <NavigationProperty Name="RelatedProduct1" Relationship="Self.FK_RelatedProductParent_Product" FromRole="Product" ToRole="RelatedProduct" />
+  </EntityType>
+  <EntityType Name="ProductStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Inventory" Relationship="Self.FK_Inventory_ProductStatus" FromRole="ProductStatus" ToRole="Inventory" />
+  </EntityType>
+  <EntityType Name="ProductToBundle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="BundleId" Type="Guid" Nullable="false" />
+    <Property Name="ProductId" Type="Guid" Nullable="false" />
+    <Property Name="PriceListId" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Level" Type="Int32" />
+    <NavigationProperty Name="Bundle" Relationship="Self.FK_ProducToBundle_Bundle" FromRole="ProductToBundle" ToRole="Bundle" />
+    <NavigationProperty Name="PriceList" Relationship="Self.FK_ProductToBundle_PriceList" FromRole="ProductToBundle" ToRole="PriceList" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductToBundle_Product" FromRole="ProductToBundle" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="RelatedProduct">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ParentProductId" Type="Guid" Nullable="false" />
+    <Property Name="ChildProductId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_RelatedProductChild_Product" FromRole="RelatedProduct" ToRole="Product" />
+    <NavigationProperty Name="Product1" Relationship="Self.FK_RelatedProductParent_Product" FromRole="RelatedProduct" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="Self.FK_City_State" FromRole="State" ToRole="City" />
+    <NavigationProperty Name="ZIP" Relationship="Self.FK_ZIP_State" FromRole="State" ToRole="ZIP" />
+  </EntityType>
+  <EntityType Name="Warehouse">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Location" Relationship="Self.FK_Location_Warehouse" FromRole="Warehouse" ToRole="Location" />
+  </EntityType>
+  <EntityType Name="ZIP">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="StateId" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Neighborhood" Relationship="Self.FK_Neighborhood_ZIP" FromRole="ZIP" ToRole="Neighborhood" />
+    <NavigationProperty Name="State" Relationship="Self.FK_ZIP_State" FromRole="ZIP" ToRole="State" />
+  </EntityType>
+  <Association Name="FK_Address_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Address" Type="Self.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Address">
+    <End Role="Address" Type="Self.Address" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="AddressId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Banner_Image">
+    <End Role="Image" Type="Self.Image" Multiplicity="1" />
+    <End Role="Banner" Type="Self.Banner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Banner">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Brand">
+    <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Brand">
+    <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bundle_Clasification">
+    <End Role="Clasification" Type="Self.Clasification" Multiplicity="1" />
+    <End Role="Bundle" Type="Self.Bundle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasification">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bundle">
+        <PropertyRef Name="ClasificationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bundle_Image">
+    <End Role="Image" Type="Self.Image" Multiplicity="1" />
+    <End Role="Bundle" Type="Self.Bundle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bundle">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProducToBundle_Bundle">
+    <End Role="Bundle" Type="Self.Bundle" Multiplicity="1" />
+    <End Role="ProductToBundle" Type="Self.ProductToBundle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bundle">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductToBundle">
+        <PropertyRef Name="BundleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Category_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Category1">
+        <PropertyRef Name="ParentCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_City_State">
+    <End Role="State" Type="Self.State" Multiplicity="1" />
+    <End Role="City" Type="Self.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Client_ClientType">
+    <End Role="ClientType" Type="Self.ClientType" Multiplicity="1" />
+    <End Role="Client" Type="Self.Client" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="ClientTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Client_Cluster">
+    <End Role="Cluster" Type="Self.Cluster" Multiplicity="1" />
+    <End Role="Client" Type="Self.Client" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cluster">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="ClusterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Guest_ChildClient">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Guest" Type="Self.Guest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Guest">
+        <PropertyRef Name="ChildClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Guest_ParentClient">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Guest" Type="Self.Guest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Guest">
+        <PropertyRef Name="ParentClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceInformation_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="InvoiceInformation" Type="Self.InvoiceInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceInformation">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Point_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Point" Type="Self.Point" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Point">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cluster_ClientType">
+    <End Role="ClientType" Type="Self.ClientType" Multiplicity="1" />
+    <End Role="Cluster" Type="Self.Cluster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cluster">
+        <PropertyRef Name="ClientTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cluster_PriceList1">
+    <End Role="PriceList" Type="Self.PriceList" Multiplicity="0..1" />
+    <End Role="Cluster" Type="Self.Cluster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cluster">
+        <PropertyRef Name="PriceList1Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cluster_PriceList2">
+    <End Role="PriceList" Type="Self.PriceList" Multiplicity="0..1" />
+    <End Role="Cluster" Type="Self.Cluster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cluster">
+        <PropertyRef Name="PriceList2Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cluster_PriceList3">
+    <End Role="PriceList" Type="Self.PriceList" Multiplicity="0..1" />
+    <End Role="Cluster" Type="Self.Cluster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cluster">
+        <PropertyRef Name="PriceList3Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cluster_PriceList4">
+    <End Role="PriceList" Type="Self.PriceList" Multiplicity="0..1" />
+    <End Role="Cluster" Type="Self.Cluster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cluster">
+        <PropertyRef Name="PriceList4Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Cluster">
+    <End Role="Cluster" Type="Self.Cluster" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cluster">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="ClusterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PriceListToCluster_Cluster">
+    <End Role="Cluster" Type="Self.Cluster" Multiplicity="1" />
+    <End Role="PriceListToCluster" Type="Self.PriceListToCluster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cluster">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PriceListToCluster">
+        <PropertyRef Name="ClusterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Feature_FeatureType">
+    <End Role="FeatureType" Type="Self.FeatureType" Multiplicity="1" />
+    <End Role="Feature" Type="Self.Feature" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FeatureType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Feature">
+        <PropertyRef Name="FeatureTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FeatureToProduct_Feature">
+    <End Role="Feature" Type="Self.Feature" Multiplicity="1" />
+    <End Role="FeatureToProduct" Type="Self.FeatureToProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Feature">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FeatureToProduct">
+        <PropertyRef Name="FeatureId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FeatureToProduct_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="FeatureToProduct" Type="Self.FeatureToProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FeatureToProduct">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Image_ImageType">
+    <End Role="ImageType" Type="Self.ImageType" Multiplicity="0..1" />
+    <End Role="Image" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImageType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="ImageTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Image_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Image" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inventory_Location">
+    <End Role="Location" Type="Self.Location" Multiplicity="1" />
+    <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inventory">
+        <PropertyRef Name="LocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inventory_ProductStatus">
+    <End Role="ProductStatus" Type="Self.ProductStatus" Multiplicity="1" />
+    <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inventory">
+        <PropertyRef Name="ProductStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_InvoiceInformation">
+    <End Role="InvoiceInformation" Type="Self.InvoiceInformation" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvoiceInformation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="InvoiceInformationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Location_Warehouse">
+    <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+    <End Role="Location" Type="Self.Location" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Location">
+        <PropertyRef Name="WarehouseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Neighborhood_ZIP">
+    <End Role="ZIP" Type="Self.ZIP" Multiplicity="1" />
+    <End Role="Neighborhood" Type="Self.Neighborhood" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZIP">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Neighborhood">
+        <PropertyRef Name="ZIPId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Payment">
+    <End Role="Payment" Type="Self.Payment" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="PaymentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Point_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Point" Type="Self.Point" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Point">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_PriceList">
+    <End Role="PriceList" Type="Self.PriceList" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="PriceListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payment_PaymentType">
+    <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="PaymentTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Point_PointType">
+    <End Role="PointType" Type="Self.PointType" Multiplicity="1" />
+    <End Role="Point" Type="Self.Point" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PointType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Point">
+        <PropertyRef Name="PointTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PriceListToCluster_PriceList">
+    <End Role="PriceList" Type="Self.PriceList" Multiplicity="1" />
+    <End Role="PriceListToCluster" Type="Self.PriceListToCluster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PriceListToCluster">
+        <PropertyRef Name="PriceListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductToBundle_PriceList">
+    <End Role="PriceList" Type="Self.PriceList" Multiplicity="1" />
+    <End Role="ProductToBundle" Type="Self.ProductToBundle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductToBundle">
+        <PropertyRef Name="PriceListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductToBundle_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ProductToBundle" Type="Self.ProductToBundle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductToBundle">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RelatedProductChild_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="RelatedProduct" Type="Self.RelatedProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RelatedProduct">
+        <PropertyRef Name="ChildProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RelatedProductParent_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="RelatedProduct" Type="Self.RelatedProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RelatedProduct">
+        <PropertyRef Name="ParentProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZIP_State">
+    <End Role="State" Type="Self.State" Multiplicity="1" />
+    <End Role="ZIP" Type="Self.ZIP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ZIP">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ECommerce" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Address" EntityType="Self.Address" />
+    <EntitySet Name="Banner" EntityType="Self.Banner" />
+    <EntitySet Name="Brand" EntityType="Self.Brand" />
+    <EntitySet Name="Bundle" EntityType="Self.Bundle" />
+    <EntitySet Name="Category" EntityType="Self.Category" />
+    <EntitySet Name="City" EntityType="Self.City" />
+    <EntitySet Name="Clasification" EntityType="Self.Clasification" />
+    <EntitySet Name="Client" EntityType="Self.Client" />
+    <EntitySet Name="ClientType" EntityType="Self.ClientType" />
+    <EntitySet Name="Cluster" EntityType="Self.Cluster" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" />
+    <EntitySet Name="Feature" EntityType="Self.Feature" />
+    <EntitySet Name="FeatureToProduct" EntityType="Self.FeatureToProduct" />
+    <EntitySet Name="FeatureType" EntityType="Self.FeatureType" />
+    <EntitySet Name="Guest" EntityType="Self.Guest" />
+    <EntitySet Name="Image" EntityType="Self.Image" />
+    <EntitySet Name="ImageType" EntityType="Self.ImageType" />
+    <EntitySet Name="Inventory" EntityType="Self.Inventory" />
+    <EntitySet Name="InvoiceInformation" EntityType="Self.InvoiceInformation" />
+    <EntitySet Name="Location" EntityType="Self.Location" />
+    <EntitySet Name="Neighborhood" EntityType="Self.Neighborhood" />
+    <EntitySet Name="Order" EntityType="Self.Order" />
+    <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" />
+    <EntitySet Name="Payment" EntityType="Self.Payment" />
+    <EntitySet Name="PaymentType" EntityType="Self.PaymentType" />
+    <EntitySet Name="Point" EntityType="Self.Point" />
+    <EntitySet Name="PointType" EntityType="Self.PointType" />
+    <EntitySet Name="PriceList" EntityType="Self.PriceList" />
+    <EntitySet Name="PriceListToCluster" EntityType="Self.PriceListToCluster" />
+    <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="ProductStatus" EntityType="Self.ProductStatus" />
+    <EntitySet Name="ProductToBundle" EntityType="Self.ProductToBundle" />
+    <EntitySet Name="RelatedProduct" EntityType="Self.RelatedProduct" />
+    <EntitySet Name="State" EntityType="Self.State" />
+    <EntitySet Name="Warehouse" EntityType="Self.Warehouse" />
+    <EntitySet Name="ZIP" EntityType="Self.ZIP" />
+    <AssociationSet Name="FK_Address_Client" Association="Self.FK_Address_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Address" EntitySet="Address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Address" Association="Self.FK_Order_Address">
+      <End Role="Address" EntitySet="Address" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Banner_Image" Association="Self.FK_Banner_Image">
+      <End Role="Image" EntitySet="Image" />
+      <End Role="Banner" EntitySet="Banner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Brand" Association="Self.FK_OrderDetail_Brand">
+      <End Role="Brand" EntitySet="Brand" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Brand" Association="Self.FK_Product_Brand">
+      <End Role="Brand" EntitySet="Brand" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bundle_Clasification" Association="Self.FK_Bundle_Clasification">
+      <End Role="Clasification" EntitySet="Clasification" />
+      <End Role="Bundle" EntitySet="Bundle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bundle_Image" Association="Self.FK_Bundle_Image">
+      <End Role="Image" EntitySet="Image" />
+      <End Role="Bundle" EntitySet="Bundle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProducToBundle_Bundle" Association="Self.FK_ProducToBundle_Bundle">
+      <End Role="Bundle" EntitySet="Bundle" />
+      <End Role="ProductToBundle" EntitySet="ProductToBundle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Category1" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_City_State" Association="Self.FK_City_State">
+      <End Role="State" EntitySet="State" />
+      <End Role="City" EntitySet="City" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Client_ClientType" Association="Self.FK_Client_ClientType">
+      <End Role="ClientType" EntitySet="ClientType" />
+      <End Role="Client" EntitySet="Client" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Client_Cluster" Association="Self.FK_Client_Cluster">
+      <End Role="Cluster" EntitySet="Cluster" />
+      <End Role="Client" EntitySet="Client" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Client" Association="Self.FK_Comment_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Guest_ChildClient" Association="Self.FK_Guest_ChildClient">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Guest" EntitySet="Guest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Guest_ParentClient" Association="Self.FK_Guest_ParentClient">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Guest" EntitySet="Guest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceInformation_Client" Association="Self.FK_InvoiceInformation_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="InvoiceInformation" EntitySet="InvoiceInformation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Client" Association="Self.FK_Order_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Point_Client" Association="Self.FK_Point_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Point" EntitySet="Point" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cluster_ClientType" Association="Self.FK_Cluster_ClientType">
+      <End Role="ClientType" EntitySet="ClientType" />
+      <End Role="Cluster" EntitySet="Cluster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cluster_PriceList1" Association="Self.FK_Cluster_PriceList1">
+      <End Role="PriceList" EntitySet="PriceList" />
+      <End Role="Cluster" EntitySet="Cluster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cluster_PriceList2" Association="Self.FK_Cluster_PriceList2">
+      <End Role="PriceList" EntitySet="PriceList" />
+      <End Role="Cluster" EntitySet="Cluster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cluster_PriceList3" Association="Self.FK_Cluster_PriceList3">
+      <End Role="PriceList" EntitySet="PriceList" />
+      <End Role="Cluster" EntitySet="Cluster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cluster_PriceList4" Association="Self.FK_Cluster_PriceList4">
+      <End Role="PriceList" EntitySet="PriceList" />
+      <End Role="Cluster" EntitySet="Cluster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Cluster" Association="Self.FK_Comment_Cluster">
+      <End Role="Cluster" EntitySet="Cluster" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PriceListToCluster_Cluster" Association="Self.FK_PriceListToCluster_Cluster">
+      <End Role="Cluster" EntitySet="Cluster" />
+      <End Role="PriceListToCluster" EntitySet="PriceListToCluster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Product" Association="Self.FK_Comment_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Feature_FeatureType" Association="Self.FK_Feature_FeatureType">
+      <End Role="FeatureType" EntitySet="FeatureType" />
+      <End Role="Feature" EntitySet="Feature" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FeatureToProduct_Feature" Association="Self.FK_FeatureToProduct_Feature">
+      <End Role="Feature" EntitySet="Feature" />
+      <End Role="FeatureToProduct" EntitySet="FeatureToProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FeatureToProduct_Product" Association="Self.FK_FeatureToProduct_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="FeatureToProduct" EntitySet="FeatureToProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Image_ImageType" Association="Self.FK_Image_ImageType">
+      <End Role="ImageType" EntitySet="ImageType" />
+      <End Role="Image" EntitySet="Image" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Image_Product" Association="Self.FK_Image_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Image" EntitySet="Image" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inventory_Location" Association="Self.FK_Inventory_Location">
+      <End Role="Location" EntitySet="Location" />
+      <End Role="Inventory" EntitySet="Inventory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inventory_ProductStatus" Association="Self.FK_Inventory_ProductStatus">
+      <End Role="ProductStatus" EntitySet="ProductStatus" />
+      <End Role="Inventory" EntitySet="Inventory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_InvoiceInformation" Association="Self.FK_Order_InvoiceInformation">
+      <End Role="InvoiceInformation" EntitySet="InvoiceInformation" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Location_Warehouse" Association="Self.FK_Location_Warehouse">
+      <End Role="Warehouse" EntitySet="Warehouse" />
+      <End Role="Location" EntitySet="Location" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Neighborhood_ZIP" Association="Self.FK_Neighborhood_ZIP">
+      <End Role="ZIP" EntitySet="ZIP" />
+      <End Role="Neighborhood" EntitySet="Neighborhood" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Payment" Association="Self.FK_Order_Payment">
+      <End Role="Payment" EntitySet="Payment" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Point_Order" Association="Self.FK_Point_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Point" EntitySet="Point" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_PriceList" Association="Self.FK_OrderDetail_PriceList">
+      <End Role="PriceList" EntitySet="PriceList" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Product" Association="Self.FK_OrderDetail_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payment_PaymentType" Association="Self.FK_Payment_PaymentType">
+      <End Role="PaymentType" EntitySet="PaymentType" />
+      <End Role="Payment" EntitySet="Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Point_PointType" Association="Self.FK_Point_PointType">
+      <End Role="PointType" EntitySet="PointType" />
+      <End Role="Point" EntitySet="Point" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PriceListToCluster_PriceList" Association="Self.FK_PriceListToCluster_PriceList">
+      <End Role="PriceList" EntitySet="PriceList" />
+      <End Role="PriceListToCluster" EntitySet="PriceListToCluster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductToBundle_PriceList" Association="Self.FK_ProductToBundle_PriceList">
+      <End Role="PriceList" EntitySet="PriceList" />
+      <End Role="ProductToBundle" EntitySet="ProductToBundle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductToBundle_Product" Association="Self.FK_ProductToBundle_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductToBundle" EntitySet="ProductToBundle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RelatedProductChild_Product" Association="Self.FK_RelatedProductChild_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="RelatedProduct" EntitySet="RelatedProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RelatedProductParent_Product" Association="Self.FK_RelatedProductParent_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="RelatedProduct" EntitySet="RelatedProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZIP_State" Association="Self.FK_ZIP_State">
+      <End Role="State" EntitySet="State" />
+      <End Role="ZIP" EntitySet="ZIP" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
