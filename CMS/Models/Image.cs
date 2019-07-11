@@ -17,22 +17,17 @@ namespace CMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Image()
         {
-            this.Banner = new HashSet<Banner>();
             this.Bundle = new HashSet<Bundle>();
         }
     
         public System.Guid Id { get; set; }
         public string Name { get; set; }
         public Nullable<System.Guid> ImageTypeId { get; set; }
-        public Nullable<System.Guid> ProductId { get; set; }
         public string URL { get; set; }
         public string Base64 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Banner> Banner { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bundle> Bundle { get; set; }
         public virtual ImageType ImageType { get; set; }
-        public virtual Product Product { get; set; }
     }
 }

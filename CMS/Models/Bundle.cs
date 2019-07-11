@@ -27,8 +27,8 @@ namespace CMS.Models
         public string Description { get; set; }
     
         public virtual Clasification Clasification { get; set; }
-        public virtual Image Image { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductToBundle> ProductToBundle { get; set; }
+        public virtual Image Image { get; set; }
     }
 }

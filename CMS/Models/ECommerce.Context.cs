@@ -26,7 +26,6 @@ namespace CMS.Models
         }
     
         public virtual DbSet<Address> Address { get; set; }
-        public virtual DbSet<Banner> Banner { get; set; }
         public virtual DbSet<Brand> Brand { get; set; }
         public virtual DbSet<Bundle> Bundle { get; set; }
         public virtual DbSet<Category> Category { get; set; }
@@ -40,7 +39,6 @@ namespace CMS.Models
         public virtual DbSet<FeatureToProduct> FeatureToProduct { get; set; }
         public virtual DbSet<FeatureType> FeatureType { get; set; }
         public virtual DbSet<Guest> Guest { get; set; }
-        public virtual DbSet<Image> Image { get; set; }
         public virtual DbSet<ImageType> ImageType { get; set; }
         public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<InvoiceInformation> InvoiceInformation { get; set; }
@@ -61,5 +59,6 @@ namespace CMS.Models
         public virtual DbSet<State> State { get; set; }
         public virtual DbSet<Warehouse> Warehouse { get; set; }
         public virtual DbSet<ZIP> ZIP { get; set; }
+        public virtual DbSet<Image> Image { get; set; }
     }
 }

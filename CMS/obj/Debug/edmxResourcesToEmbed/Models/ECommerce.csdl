@@ -17,16 +17,6 @@
     <NavigationProperty Name="Client" Relationship="Self.FK_Address_Client" FromRole="Address" ToRole="Client" />
     <NavigationProperty Name="Order" Relationship="Self.FK_Order_Address" FromRole="Address" ToRole="Order" />
   </EntityType>
-  <EntityType Name="Banner">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Guid" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="ImageId" Type="Guid" Nullable="false" />
-    <NavigationProperty Name="Image" Relationship="Self.FK_Banner_Image" FromRole="Banner" ToRole="Image" />
-  </EntityType>
   <EntityType Name="Brand">
     <Key>
       <PropertyRef Name="Id" />
@@ -46,8 +36,8 @@
     <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Clasification" Relationship="Self.FK_Bundle_Clasification" FromRole="Bundle" ToRole="Clasification" />
-    <NavigationProperty Name="Image" Relationship="Self.FK_Bundle_Image" FromRole="Bundle" ToRole="Image" />
     <NavigationProperty Name="ProductToBundle" Relationship="Self.FK_ProducToBundle_Bundle" FromRole="Bundle" ToRole="ProductToBundle" />
+    <NavigationProperty Name="Image" Relationship="ECommerceModel.FK_Bundle_Image" FromRole="Bundle" ToRole="Image" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -190,28 +180,13 @@
     <NavigationProperty Name="Client" Relationship="Self.FK_Guest_ChildClient" FromRole="Guest" ToRole="Client" />
     <NavigationProperty Name="Client1" Relationship="Self.FK_Guest_ParentClient" FromRole="Guest" ToRole="Client" />
   </EntityType>
-  <EntityType Name="Image">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Guid" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="ImageTypeId" Type="Guid" />
-    <Property Name="ProductId" Type="Guid" />
-    <Property Name="URL" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="Base64" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Banner" Relationship="Self.FK_Banner_Image" FromRole="Image" ToRole="Banner" />
-    <NavigationProperty Name="Bundle" Relationship="Self.FK_Bundle_Image" FromRole="Image" ToRole="Bundle" />
-    <NavigationProperty Name="ImageType" Relationship="Self.FK_Image_ImageType" FromRole="Image" ToRole="ImageType" />
-    <NavigationProperty Name="Product" Relationship="Self.FK_Image_Product" FromRole="Image" ToRole="Product" />
-  </EntityType>
   <EntityType Name="ImageType">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Guid" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Image" Relationship="Self.FK_Image_ImageType" FromRole="ImageType" ToRole="Image" />
+    <NavigationProperty Name="Image" Relationship="ECommerceModel.FK_Image_ImageType" FromRole="ImageType" ToRole="Image" />
   </EntityType>
   <EntityType Name="Inventory">
     <Key>
@@ -387,7 +362,6 @@
     <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
     <NavigationProperty Name="Comment" Relationship="Self.FK_Comment_Product" FromRole="Product" ToRole="Comment" />
     <NavigationProperty Name="FeatureToProduct" Relationship="Self.FK_FeatureToProduct_Product" FromRole="Product" ToRole="FeatureToProduct" />
-    <NavigationProperty Name="Image" Relationship="Self.FK_Image_Product" FromRole="Product" ToRole="Image" />
     <NavigationProperty Name="OrderDetail" Relationship="Self.FK_OrderDetail_Product" FromRole="Product" ToRole="OrderDetail" />
     <NavigationProperty Name="ProductToBundle" Relationship="Self.FK_ProductToBundle_Product" FromRole="Product" ToRole="ProductToBundle" />
     <NavigationProperty Name="RelatedProduct" Relationship="Self.FK_RelatedProductChild_Product" FromRole="Product" ToRole="RelatedProduct" />
@@ -478,18 +452,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Banner_Image">
-    <End Role="Image" Type="Self.Image" Multiplicity="1" />
-    <End Role="Banner" Type="Self.Banner" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Image">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Banner">
-        <PropertyRef Name="ImageId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_OrderDetail_Brand">
     <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
     <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
@@ -523,18 +485,6 @@
       </Principal>
       <Dependent Role="Bundle">
         <PropertyRef Name="ClasificationId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Bundle_Image">
-    <End Role="Image" Type="Self.Image" Multiplicity="1" />
-    <End Role="Bundle" Type="Self.Bundle" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Image">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Bundle">
-        <PropertyRef Name="ImageId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -814,30 +764,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Image_ImageType">
-    <End Role="ImageType" Type="Self.ImageType" Multiplicity="0..1" />
-    <End Role="Image" Type="Self.Image" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ImageType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Image">
-        <PropertyRef Name="ImageTypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Image_Product">
-    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="Image" Type="Self.Image" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Image">
-        <PropertyRef Name="ProductId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Inventory_Location">
     <End Role="Location" Type="Self.Location" Multiplicity="1" />
     <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
@@ -1056,7 +982,6 @@
   </Association>
   <EntityContainer Name="ECommerce" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Address" EntityType="Self.Address" />
-    <EntitySet Name="Banner" EntityType="Self.Banner" />
     <EntitySet Name="Brand" EntityType="Self.Brand" />
     <EntitySet Name="Bundle" EntityType="Self.Bundle" />
     <EntitySet Name="Category" EntityType="Self.Category" />
@@ -1070,7 +995,6 @@
     <EntitySet Name="FeatureToProduct" EntityType="Self.FeatureToProduct" />
     <EntitySet Name="FeatureType" EntityType="Self.FeatureType" />
     <EntitySet Name="Guest" EntityType="Self.Guest" />
-    <EntitySet Name="Image" EntityType="Self.Image" />
     <EntitySet Name="ImageType" EntityType="Self.ImageType" />
     <EntitySet Name="Inventory" EntityType="Self.Inventory" />
     <EntitySet Name="InvoiceInformation" EntityType="Self.InvoiceInformation" />
@@ -1099,10 +1023,6 @@
       <End Role="Address" EntitySet="Address" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>
-    <AssociationSet Name="FK_Banner_Image" Association="Self.FK_Banner_Image">
-      <End Role="Image" EntitySet="Image" />
-      <End Role="Banner" EntitySet="Banner" />
-    </AssociationSet>
     <AssociationSet Name="FK_OrderDetail_Brand" Association="Self.FK_OrderDetail_Brand">
       <End Role="Brand" EntitySet="Brand" />
       <End Role="OrderDetail" EntitySet="OrderDetail" />
@@ -1113,10 +1033,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_Bundle_Clasification" Association="Self.FK_Bundle_Clasification">
       <End Role="Clasification" EntitySet="Clasification" />
-      <End Role="Bundle" EntitySet="Bundle" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Bundle_Image" Association="Self.FK_Bundle_Image">
-      <End Role="Image" EntitySet="Image" />
       <End Role="Bundle" EntitySet="Bundle" />
     </AssociationSet>
     <AssociationSet Name="FK_ProducToBundle_Bundle" Association="Self.FK_ProducToBundle_Bundle">
@@ -1211,14 +1127,6 @@
       <End Role="Product" EntitySet="Product" />
       <End Role="FeatureToProduct" EntitySet="FeatureToProduct" />
     </AssociationSet>
-    <AssociationSet Name="FK_Image_ImageType" Association="Self.FK_Image_ImageType">
-      <End Role="ImageType" EntitySet="ImageType" />
-      <End Role="Image" EntitySet="Image" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Image_Product" Association="Self.FK_Image_Product">
-      <End Role="Product" EntitySet="Product" />
-      <End Role="Image" EntitySet="Image" />
-    </AssociationSet>
     <AssociationSet Name="FK_Inventory_Location" Association="Self.FK_Inventory_Location">
       <End Role="Location" EntitySet="Location" />
       <End Role="Inventory" EntitySet="Inventory" />
@@ -1291,5 +1199,50 @@
       <End Role="State" EntitySet="State" />
       <End Role="ZIP" EntitySet="ZIP" />
     </AssociationSet>
+    <EntitySet Name="Image" EntityType="ECommerceModel.Image" />
+    <AssociationSet Name="FK_Bundle_Image" Association="ECommerceModel.FK_Bundle_Image">
+      <End Role="Image" EntitySet="Image" />
+      <End Role="Bundle" EntitySet="Bundle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Image_ImageType" Association="ECommerceModel.FK_Image_ImageType">
+      <End Role="ImageType" EntitySet="ImageType" />
+      <End Role="Image" EntitySet="Image" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ImageTypeId" Type="Guid" />
+    <Property Name="URL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Base64" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Bundle" Relationship="ECommerceModel.FK_Bundle_Image" FromRole="Image" ToRole="Bundle" />
+    <NavigationProperty Name="ImageType" Relationship="ECommerceModel.FK_Image_ImageType" FromRole="Image" ToRole="ImageType" />
+  </EntityType>
+  <Association Name="FK_Bundle_Image">
+    <End Type="ECommerceModel.Image" Role="Image" Multiplicity="1" />
+    <End Type="ECommerceModel.Bundle" Role="Bundle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bundle">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Image_ImageType">
+    <End Type="ECommerceModel.ImageType" Role="ImageType" Multiplicity="0..1" />
+    <End Type="ECommerceModel.Image" Role="Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImageType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="ImageTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

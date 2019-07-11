@@ -188,9 +188,6 @@
     <Compile Include="Models\Address.cs">
       <DependentUpon>ECommerce.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Banner.cs">
-      <DependentUpon>ECommerce.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Brand.cs">
       <DependentUpon>ECommerce.tt</DependentUpon>
     </Compile>
@@ -310,9 +307,17 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\AddressesController.cs" />
+    <Compile Include="Views\BrandsController.cs" />
+    <Compile Include="Views\BundlesController.cs" />
+    <Compile Include="Views\CategoriesController.cs" />
+    <Compile Include="Views\ClasificationsController.cs" />
     <Compile Include="Views\FeaturesController.cs" />
     <Compile Include="Views\FeatureTypesController.cs" />
+    <Compile Include="Views\ImagesController.cs" />
+    <Compile Include="Views\ImageTypesController.cs" />
+    <Compile Include="Views\PriceListsController.cs" />
     <Compile Include="Views\ProductsController.cs" />
+    <Compile Include="Views\ProductToBundlesController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -390,6 +395,46 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Brands\Create.cshtml" />
+    <Content Include="Views\Brands\Delete.cshtml" />
+    <Content Include="Views\Brands\Details.cshtml" />
+    <Content Include="Views\Brands\Edit.cshtml" />
+    <Content Include="Views\Brands\Index.cshtml" />
+    <Content Include="Views\ImageTypes\Create.cshtml" />
+    <Content Include="Views\ImageTypes\Delete.cshtml" />
+    <Content Include="Views\ImageTypes\Details.cshtml" />
+    <Content Include="Views\ImageTypes\Edit.cshtml" />
+    <Content Include="Views\ImageTypes\Index.cshtml" />
+    <Content Include="Views\Bundles\Create.cshtml" />
+    <Content Include="Views\Bundles\Delete.cshtml" />
+    <Content Include="Views\Bundles\Details.cshtml" />
+    <Content Include="Views\Bundles\Edit.cshtml" />
+    <Content Include="Views\Bundles\Index.cshtml" />
+    <Content Include="Views\Clasifications\Create.cshtml" />
+    <Content Include="Views\Clasifications\Delete.cshtml" />
+    <Content Include="Views\Clasifications\Details.cshtml" />
+    <Content Include="Views\Clasifications\Edit.cshtml" />
+    <Content Include="Views\Clasifications\Index.cshtml" />
+    <Content Include="Views\Images\Create.cshtml" />
+    <Content Include="Views\Images\Delete.cshtml" />
+    <Content Include="Views\Images\Details.cshtml" />
+    <Content Include="Views\Images\Edit.cshtml" />
+    <Content Include="Views\Images\Index.cshtml" />
+    <Content Include="Views\ProductToBundles\Create.cshtml" />
+    <Content Include="Views\ProductToBundles\Delete.cshtml" />
+    <Content Include="Views\ProductToBundles\Details.cshtml" />
+    <Content Include="Views\ProductToBundles\Edit.cshtml" />
+    <Content Include="Views\ProductToBundles\Index.cshtml" />
+    <Content Include="Views\PriceLists\Create.cshtml" />
+    <Content Include="Views\PriceLists\Delete.cshtml" />
+    <Content Include="Views\PriceLists\Details.cshtml" />
+    <Content Include="Views\PriceLists\Edit.cshtml" />
+    <Content Include="Views\PriceLists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

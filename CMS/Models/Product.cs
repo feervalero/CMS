@@ -19,7 +19,6 @@ namespace CMS.Models
         {
             this.Comment = new HashSet<Comment>();
             this.FeatureToProduct = new HashSet<FeatureToProduct>();
-            this.Image = new HashSet<Image>();
             this.OrderDetail = new HashSet<OrderDetail>();
             this.ProductToBundle = new HashSet<ProductToBundle>();
             this.RelatedProduct = new HashSet<RelatedProduct>();
@@ -43,8 +42,6 @@ namespace CMS.Models
         public virtual ICollection<Comment> Comment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FeatureToProduct> FeatureToProduct { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Image> Image { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

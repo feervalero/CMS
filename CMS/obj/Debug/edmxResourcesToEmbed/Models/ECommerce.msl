@@ -17,16 +17,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Banner">
-      <EntityTypeMapping TypeName="ECommerceModel.Banner">
-        <MappingFragment StoreEntitySet="Banner">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Url" ColumnName="Url" />
-          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Brand">
       <EntityTypeMapping TypeName="ECommerceModel.Brand">
         <MappingFragment StoreEntitySet="Brand">
@@ -161,18 +151,6 @@
           <ScalarProperty Name="ParentClientId" ColumnName="ParentClientId" />
           <ScalarProperty Name="ChildClientId" ColumnName="ChildClientId" />
           <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Image">
-      <EntityTypeMapping TypeName="ECommerceModel.Image">
-        <MappingFragment StoreEntitySet="Image">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ImageTypeId" ColumnName="ImageTypeId" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="URL" ColumnName="URL" />
-          <ScalarProperty Name="Base64" ColumnName="Base64" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -388,6 +366,17 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="StateId" ColumnName="StateId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Image">
+      <EntityTypeMapping TypeName="ECommerceModel.Image">
+        <MappingFragment StoreEntitySet="Image">
+          <ScalarProperty Name="Base64" ColumnName="Base64" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="ImageTypeId" ColumnName="ImageTypeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
